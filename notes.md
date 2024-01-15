@@ -390,6 +390,7 @@ Timeline pane now includes:
 
 # Analyze Text with Azure AI Language
 
+https://language.azure.com/
 https://microsoftlearning.github.io/mslearn-ai-language/Instructions/Exercises/01-analyze-text.html
 ---
 
@@ -481,3 +482,114 @@ Response
   }
 }
 ```
+
+## Question Answering (https://language.azure.com/)
+
+https://microsoftlearning.github.io/mslearn-ai-language/Instructions/Exercises/02-qna.html
+
+The question answering capability of the Azure AI Language service makes it easy to build applications in which users ask questions using natural language and receive appropriate answers.
+
+After completing this module, you will be able to:
+
+
+    * Understand question answering and how it compares to language understanding
+
+    * Create, test, publish and consume a knowledge base
+
+    * Implement multi-turn conversation and active learning
+
+    * Create a question answering bot to interact with using natural language
+
+A common pattern for "intelligent" applications is to enable users to ask questions using natural language, and receive appropriate answers. In effect, this kind of solution brings conversational intelligence to a traditional frequently asked questions (FAQ) publication. In this module, you will learn how to use Azure AI Language to create a knowledge base of question and answer pairs that can support an application or bot.
+
+After completing this module, you’ll be able to:
+
+
+    * Understand question answering and how it compares to language understanding.
+
+    * Create, test, publish and consume a knowledge base.
+
+    * Implement multi-turn conversation and active learning.
+
+    * Create a question answering bot to interact with using natural language.
+
+## How it works?
+
+Azure AI Language includes a question answering capability, which enables you to define a knowledge base of question and answer pairs that can be queried using natural language input. The knowledge base can be published to a REST endpoint and consumed by client applications, commonly bots.
+
+The knowledge base can be created from existing sources, including:
+
+    
+    * Web sites containing frequently asked question (FAQ) documentation.
+    
+    * Files containing structured text, such as brochures or user guides.
+    
+    * Built-in chit chat question and answer pairs that encapsulate common conversational exchanges.
+
+Question answering vs Conversational AI?
+
+|                       | Question answering                                            | Language understanding                                        |
+|-----------------------|--------------------------------------------------------------|----------------------------------------------------------------|
+| **Usage pattern**     | User submits a question, expecting an answer                | User submits an utterance, expecting an appropriate response or action  |
+| **Query processing**  | Service uses natural language understanding to match the question to an answer in the knowledge base | Service uses natural language understanding to interpret the utterance, match it to an intent, and identify entities  |
+| **Response**          | Response is a static answer to a known question             | Response indicates the most likely intent and referenced entities |
+| **Client logic**      | Client application typically presents the answer to the user | Client application is responsible for performing appropriate action based on the detected intent |
+
+* The two services are in fact complementary. You can build comprehensive natural language solutions that combine language understanding models and question answering knowledge bases.
+
+Create a Knowledge Base
+
+In Language Studio, select your Azure AI Language resource and create a Custom question answering project.
+
+Add one or more data sources to populate the knowledge base:
+
+    
+    * URLs for web pages containing FAQs.
+    
+    * Files containing structured text from which questions and answers can be derived.
+    
+    * Predefined chit-chat datasets that include common conversational questions and responses in a specified style.
+    
+    * Edit question and answer pairs in the portal.
+
+Implement multi-turn conversation
+
+    * Although you can often create an effective knowledge base that consists of individual question and answer pairs, sometimes you might need to ask follow-up questions to elicit more information from a user before presenting a definitive answer. This kind of interaction is referred to as a multi-turn conversation.
+
+You can enable multi-turn responses when importing questions and answers from an existing web page or document based on its structure, or you can explicitly define follow-up prompts and responses for existing question and answer pairs.
+
+For example, suppose an initial question for a travel booking knowledge base is "How can I cancel a reservation?". A reservation might refer to a hotel or a flight, so a follow-up prompt is required to clarify this detail. The answer might consist of text such as "Cancellation policies depend on the type of reservation" and include follow-up prompts with links to answers about canceling flights and canceling hotels.
+
+When you define a follow-up prompt for multi-turn conversation, you can link to an existing answer in the knowledge base or define a new answer specifically for the follow-up. You can also restrict the linked answer so that it is only ever displayed in the context of the multi-turn conversation initiated by the original question.
+
+You can create a knowledge base from scratch, but it’s common to start by importing questions and answers from an existing FAQ page or document. 
+
+In this case, you’ll import data from an existing FAQ web page for Microsoft learn, and you’ll also import some pre-defined “chit chat” questions and answers to support common conversational exchanges.
+
+### Build a Natural Language Understanding Model
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
