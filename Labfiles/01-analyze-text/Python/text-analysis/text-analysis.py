@@ -53,6 +53,11 @@ def main():
 
 
             # Get linked entities
+            entities = ai_client.recognize_linked_entities(documents=[text])[0].entities
+            if len(entities) > 0:
+                print("\nLinks")
+                for linked_entity in entities:
+                    print("\t{} ({})".format(linked_entity.name, linked_entity.url))
 
 
 
