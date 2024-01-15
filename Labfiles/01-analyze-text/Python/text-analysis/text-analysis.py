@@ -28,10 +28,12 @@ def main():
 
             # Get language
             detectedLanguage = ai_client.detect_language(documents=[text])[0]
-            print('\n Language: {}'.format(detectedLanguage.primary_language.name))
+            print('\nLanguage: {}'.format(detectedLanguage.primary_language.name))
 
 
             # Get sentiment
+            sentimentAnalysis = ai_client.analyze_sentiment(documents=[text])[0]
+            print("\nSentiment: {}".format(sentimentAnalysis.sentiment))
 
 
             # Get key phrases
