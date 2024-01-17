@@ -718,6 +718,11 @@ TurnOffDevice:
 
 When you teach your model with each different type of utterance, the Azure AI Language service can learn how to categorize intents correctly based off format and punctuation.
 
+Note: The logic in the application is deliberately simple, and has a number of limitations. For example, when getting the time, only a restricted set of cities is supported and daylight savings time is ignored. The goal is to see an example of a typical pattern for using Language Service in which your application must:
+
+Connect to a prediction endpoint.
+Submit an utterance to get a prediction.
+Implement logic to respond appropriately to the predicted intent and entities.
 
 
 

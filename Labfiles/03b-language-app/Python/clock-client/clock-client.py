@@ -71,37 +71,37 @@ def main():
                 print("query: {}".format(result["result"]["query"]))
 
                 # Apply the appropriate action
-                if top_intent == 'GetTime':
+                if top_intent == 'getTime':
                     location = 'local'
                     # Check for entities
                     if len(entities) > 0:
                         # Check for a location entity
                         for entity in entities:
-                            if 'Location' == entity["category"]:
+                            if 'location' == entity["category"]:
                                 # ML entities are strings, get the first one
                                 location = entity["text"]
                     # Get the time for the specified location
                     print(GetTime(location))
 
-                elif top_intent == 'GetDay':
+                elif top_intent == 'getDay':
                     date_string = date.today().strftime("%m/%d/%Y")
                     # Check for entities
                     if len(entities) > 0:
                         # Check for a Date entity
                         for entity in entities:
-                            if 'Date' == entity["category"]:
+                            if 'date' == entity["category"]:
                                 # Regex entities are strings, get the first one
                                 date_string = entity["text"]
                     # Get the day for the specified date
                     print(GetDay(date_string))
 
-                elif top_intent == 'GetDate':
+                elif top_intent == 'getDate':
                     day = 'today'
                     # Check for entities
                     if len(entities) > 0:
                         # Check for a Weekday entity
                         for entity in entities:
-                            if 'Weekday' == entity["category"]:
+                            if 'weekday' == entity["category"]:
                             # List entities are lists
                                 day = entity["text"]
                     # Get the date for the specified day
