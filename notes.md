@@ -388,7 +388,7 @@ Timeline pane now includes:
     
     * Indications of speakers who appear in the video. Some well-known people are automatically recognized by name, others are indicated by number (for example Speaker #1).
 
-# Analyze Text with Azure AI Language
+# Analyze Text with Azure AI Language (https://learn.microsoft.com/en-us/azure/ai-services/language-service/overview)
 
 https://language.azure.com/
 https://microsoftlearning.github.io/mslearn-ai-language/Instructions/Exercises/01-analyze-text.html
@@ -424,6 +424,23 @@ Azure AI Language is designed to help you extract information from text. It prov
     Person, Location, DateTime, Organization, Address, Email, URL.
  
     * Entity linking - identifying specific entities by providing reference links to Wikipedia articles.
+
+    * Summarization - Summarization is available for both documents and conversations, and will summarize the text into key sentences that are predicted to encapsulate the input's meaning.
+
+    * Personally identifiable information (PII) detection - PII detection allows you to identify, categorize, and redact information that could be considered sensitive, such as email addresses, home addresses, IP addresses, names, and protected health information. For example, if the text "email@contoso.com" was included in the query, the entire email address can be identified and redacted.
+
+    * Learned features - Learned features require you to label data, train, and deploy your model to make it available to use in your application. These features allow you to customize what information is predicted or extracted.
+
+    * Conversational language understanding (CLU) - CLU is one of the core custom features offered by Azure AI Language. CLU helps users to build custom natural language understanding models to predict overall intent and extract important information from incoming utterances. CLU does require data to be tagged by the user to teach it how to predict intents and entities accurately.
+    
+    * Custom named entity recognition -Custom entity recognition takes custom labeled data and extracts specified entities from unstructured text. For example, if you have various contract documents that you want to extract involved parties from, you can train a model to recognize how to predict them.
+    
+    * Custom text classification- Custom text classification enables users to classify text or documents as custom defined groups. For example, you can train a model to look at news articles and identify the category they should fall into, such as News or Entertainment.
+
+    * Question answering - Question answering is a mostly pre-configured feature that provides answers to questions provided as input. The data to answer these questions comes from documents like FAQs or manuals.
+
+    For example, say you want to make a virtual chat assistant on your company website to answer common questions. You could use a company FAQ as the input document to create the question and answer pairs. Once deployed, your chat assistant can pass input questions to the service, and get the answers as a result.
+
 
 Entity Linkinh Example.
 
@@ -567,7 +584,139 @@ You can create a knowledge base from scratch, but it’s common to start by impo
 In this case, you’ll import data from an existing FAQ web page for Microsoft learn, and you’ll also import some pre-defined “chit chat” questions and answers to support common conversational exchanges.
 
 ### Build a Natural Language Understanding Model
+[exercise]https://microsoftlearning.github.io/mslearn-ai-language/Instructions/Exercises/03-language-understanding.html
 
+[prebuilt entities](https://learn.microsoft.com/en-us/azure/ai-services/language-service/conversational-language-understanding/prebuilt-component-reference)
+
+The Azure AI Language conversational language understanding service (CLU) enables you to train a model that apps can use to extract meaning from natural language.
+
+Learning objectives
+
+    * Provision Azure resources for Azure AI Language resource
+    
+    * Define intents, utterances, and entities
+    
+    * Use patterns to differentiate similar utterances
+    
+    * Use pre-built entity components
+    
+    * Train, test, publish, and review an Azure AI Language model
+
+#### Desing Pattern
+
+In this design pattern:
+
+    * An app accepts natural language input from a user.
+    
+    * A language model is used to determine semantic meaning (the user's intent).
+    
+    * The app performs an appropriate action.
+
+Utterances are the phrases that a user might enter when interacting with an application that uses your language model. 
+An intent represents a task or action the user wants to perform, or more simply the meaning of an utterance. You create a model by defining intents and associating them with one or more utterances.
+Entities are used to add specific context to intents. For example, you might define a TurnOnDevice intent that can be applied to multiple devices, and use entities to define the different devices.
+
+Learned entities are the most flexible kind of entity, and should be used in most cases. You define a learned component with a suitable name, and then associate words or phrases with it in training utterances. When you train your model, it learns to match the appropriate elements in the utterances with the entity.
+List entities are useful when you need an entity with a specific set of possible values - for example, days of the week. You can include synonyms in a list entity definition, so you could define a DayOfWeek entity that includes the values "Sunday", "Monday", "Tuesday", and so on; each with synonyms like "Sun", "Mon", "Tue", and so on.
+Prebuilt entities are useful for common types such as numbers, datetimes, and names. For example, when prebuilt components are added, you will automatically detect values such as "6" or organizations such as "Microsoft". You can see this article for a list of supported prebuilt entities.
+
+Guidelines in mind:
+
+Capture multiple different examples, or alternative ways of saying the same thing
+    
+    * Vary the length of the utterances from short, to medium, to long
+    
+    * Vary the location of the noun or subject of the utterance. Place it at the beginning, the end, or somewhere in between
+
+Use correct grammar and incorrect grammar in different utterances to offer good training data examples
+
+The precision, consistency and completeness of your labeled data are key factors to determining model performance.
+    
+    * Label precisely: Label each entity to its right type always. Only include what you want extracted, avoid unnecessary data in your labels.
+    
+    * Label consistently: The same entity should have the same label across all the utterances.
+    
+    * Label completely: Label all the instances of the entity in all your utterances.
+
+For example, consider the following list of intents and associated utterances:
+
+GetTime:
+    
+    * "What time is it?"
+    
+    * "What is the time?"
+    
+    * "Tell me the time"
+
+GetWeather:
+    
+    * "What is the weather forecast?"
+    
+    * "Do I need an umbrella?"
+    
+    * "Will it snow?"
+    
+    * TurnOnDevice
+    
+    * "Turn the light on."
+    
+    * "Switch on the light."
+    
+    * "Turn on the fan"
+
+None:
+    
+    * "Hello"
+    
+    * "Goodbye"
+
+Examples:
+
+| Utterance                             | Intent         | Entities                           |
+|----------------------------------------|----------------|------------------------------------|
+| What is the time?                      | GetTime        |                                    |
+| What time is it in London?             | GetTime        | Location (London)                  |
+| What's the weather forecast for Paris?  | GetWeather     | Location (Paris)                   |
+| Will I need an umbrella tonight?       | GetWeather     | Time (tonight)                     |
+| What's the forecast for Seattle tomorrow?| GetWeather   | Location (Seattle), Time (tomorrow)|
+| Turn the light on.                     | TurnOnDevice   | Device (light)                     |
+| Switch on the fan.                      | TurnOnDevice   | Device (fan)                       |
+
+In some cases, a model might contain multiple intents for which utterances are likely to be similar. You can use the pattern of utterances to disambiguate the intents while minimizing the number of sample utterances.
+
+For example, consider the following utterances:
+
+    * "Turn on the kitchen light"
+    
+    * "Is the kitchen light on?"
+    
+    * "Turn off the kitchen light"
+
+These utterances are syntactically similar, with only a few differences in words or punctuation. However, they represent three different intents (which could be named TurnOnDevice, GetDeviceStatus, and TurnOffDevice). Additionally, the intents could apply to a wide range of entity values. In addition to "kitchen light", the intent could apply to "living room light", television", or any other device that the model might need to support.
+
+To correctly train your model, provide a handful of examples of each intent that specify the different formats of utterances.
+
+TurnOnDevice:
+    
+    * "Turn on the {DeviceName}"
+    
+    * "Switch on the {DeviceName}"
+    
+    * "Turn the {DeviceName} on"
+
+GetDeviceStatus:
+
+    * "Is the {DeviceName} on[?]"
+
+TurnOffDevice:
+
+    * "Turn the {DeviceName} off"
+
+    * "Switch off the {DeviceName}"
+
+    * "Turn off the {DeviceName}"
+
+When you teach your model with each different type of utterance, the Azure AI Language service can learn how to categorize intents correctly based off format and punctuation.
 
 
 

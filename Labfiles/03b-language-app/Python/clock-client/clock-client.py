@@ -5,6 +5,8 @@ from datetime import datetime, timedelta, date
 from dateutil.parser import parse as is_date
 
 # Import namespaces
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.language.conversations import ConversationAnalysisClient
 
 
 def main():
@@ -22,8 +24,51 @@ def main():
             if userText.lower() != 'quit':
 
                 # Create a client for the Language service model
+                client_key = AzureKeyCredential(ls_prediction_key)
+                client = ConversationAnalysisClient(ls_prediction_endpoint, client_key)
 
                 # Call the Language service model to get intent and entities
+                cls_project = 'Clock'
+                deployment_slot = 'productionVOne'
+
+                with client:
+                    query = userText
+                    result = client.analyze_conversation(
+                        task={
+                            "kind": "Conversation",
+                            "analysisInput": {
+                                "conversationItem": {
+                                    "participantId": "1",
+                                    "id": "1",
+                                    "modality": "text",
+                                    "language": "en",
+                                    "text": query
+                                },
+                                "isLoggingEnabled": False
+                            },
+                            "parameters": {
+                                "projectName": cls_project,
+                                "deploymentName": deployment_slot,
+                                "verbose": True
+                            }
+                        }
+                    )
+                
+                top_intent = result["result"]["prediction"]["topIntent"]
+                entities = result["result"]["prediction"]["entitites"]
+
+                print("view top intent:")
+                print("\ttopintent: {}".format(top_intent))
+                print("\tcategory: {}".format(result["result"]["prediction"]["intents"][0]["category"]))
+                print("\tconfidenceScore: {}".format(result["result"]["prediction"]["intents"][0]["confidenceScore"]))
+
+                print("view entities:")
+                for entity in entities:
+                    print("\tcategory: {}".format(entity["category"]))
+                    print("\text: {}".format(entity["text"]))
+                    print("\confidenceScore: {}".format(entity["confidenceScore"]))
+                
+                print("\tquery: {}".format(result["result"]["query"]))
 
                 # Apply the appropriate action
 
