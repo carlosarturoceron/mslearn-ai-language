@@ -724,11 +724,73 @@ Connect to a prediction endpoint.
 Submit an utterance to get a prediction.
 Implement logic to respond appropriately to the predicted intent and entities.
 
+## Create a custom text classification solution (https://learn.microsoft.com/en-us/training/modules/custom-text-classification/2-understand-types-of-classification-projects)
 
+The Azure AI Language service enables processing of natural language to use in your own app. Learn how to build a custom text classification project.
 
+Learning objectives:
 
+After completing this module, you'll be able to:
+    
+    * Understand types of classification projects
+    
+    * Build a custom text classification project
+    
+    * Tag data, train, and deploy a model
+    
+    * Submit classification tasks from your own app
 
+Natural language processing (NLP) is one of the most common AI problems, where software must interpret text or speech in the natural form that humans use. Part of NLP is the ability to classify text, and Azure provides ways to classify text including sentiment, language, and custom categories defined by the user.
 
+In this module, you'll learn how to use the Azure AI Language service to classify text into custom groups.
+
+After completing this module, you'll be able to:
+
+    
+    * Understand types of classification projects:
+        
+        * Single label classification - you can assign only one class to each file. Following the above example, a video game summary could only be classified as "Adventure" or "Strategy".
+        
+        * Multiple label classification - you can assign multiple classes to each file. This type of project would allow you to classify a video game summary as "Adventure" or "Adventure and Strategy".
+    
+    * Build a custom text classification project.
+    
+    * Tag data, train, and deploy a model.
+    
+    * Submit classification tasks from your own app.
+
+Labeling data
+In single label projects, each file is assigned one class during the labeling process; class assignment in Azure AI Language only allows you to select one class.
+
+When labeling multiple label projects, you can assign as many classes that you want per file. The impact of the added complexity means your data has to remain clear and provide a good distribution of possible inputs for your model to learn from.
+
+Conceptual diagram that shows mapping of documents to labels for single label and multiple label classifications.
+
+Labeling data correctly, especially for multiple label projects, is directly correlated with how well your model performs. The higher the quality, clarity, and variation of your data set is, the more accurate your model will be.
+
+Evaluating and improving your model
+
+Measuring predictive performance of your model goes beyond how many predictions were correct. Correct classifications are when the actual label is x and the model predicts a label x. In the real world, documents result in different kinds of errors when a classification isn't correct:
+
+False positive - model predicts x, but the file isn't labeled x.
+False negative - model doesn't predict label x, but the file in fact is labeled x.
+These metrics are translated into three measures provided by Azure AI Language:
+
+Recall - Of all the actual labels, how many were identified; the ratio of true positives to all that was labeled.
+Precision - How many of the predicted labels are correct; the ratio of true positives to all identified positives.
+F1 Score - A function of recall and precision, intended to provide a single score to maximize for a balance of each component
+
+With a single label project, you can identify which classes aren't classified as well as others and find more quality data to use in training your model. For multiple label projects, figuring out quality data becomes more complex due to the matrix of possible permutations of combined labels.
+
+For example, let's your model is correctly classifying "Action" games and some "Action and Strategy" games, but failing at "Strategy" games. To improve your model, you'll want to find more high quality and varied summaries for both "Action and Strategy" games, as well at "Strategy" games to teach your model how to differentiate the two. This challenge increases exponentially with more possible classes your model is classifying into.
+
+Was getting a 503 CORS not enabled issue and solved it by adding language studio base url to the blob storage
+
+Headers:
+
+```
+Accept,Authorization,Beare,Referer,Sec-Ch-Ua,Sec-Ch-Ua-Mobile,Sec-Ch-Ua-Platform,Skip-Throttling,User-Agent,User-Session-Id,X-Ms-Blob-Type,X-Ms-Version 
+```
 
 
 
