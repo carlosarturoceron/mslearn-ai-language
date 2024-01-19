@@ -859,7 +859,38 @@ You can use either API for interactive speech recognition, depending on the expe
 
 You can learn more about the REST APIs in the Speech to text REST API documentation. In practice, most interactive speech-enabled applications use the Speech service through a (programming) language-specific SDK.
 
+## Translate Speech
 
+The Azure AI Speech service provides robust, machine learning and artificial intelligence-based speech translation services, enabling developers to add end-to-end, real-time, speech translations to their applications or services. You can use either a dedicated Azure AI Speech resource or a multi-service Azure AI Services resource.
+
+Before you can use the service, you need to create an Azure AI Speech resource in your Azure subscription.
+
+After creating your Azure resource, you'll need the following information to use it from a client application through one of the supported SDKs:
+
+The location in which the resource is deployed (for example, eastus)
+One of the keys assigned to your resource.
+You can view of these values on the Keys and Endpoint page for your resource in the Azure portal.
+
+Synthesize translations
+Completed
+100 XP
+3 minutes
+The TranslationRecognizer returns translated transcriptions of spoken input - essentially translating audible speech to text.
+
+You can also synthesize the translation as speech to create speech-to-speech translation solutions. There are two ways you can accomplish this.
+
+Event-based synthesis
+When you want to perform 1:1 translation (translating from one source language into a single target language), you can use event-based synthesis to capture the translation as an audio stream. To do this, you need to:
+
+Specify the desired voice for the translated speech in the TranslationConfig. Create an event handler for the TranslationRecognizer object's Synthesizing event. In the event handler, use the GetAudio() method of the Result parameter to retrieve the byte stream of translated audio. The specific code used to implement an event handler varies depending on the programming language you're using. See the C# and Python examples in the Speech SDK documentation.
+
+Manual synthesis
+Manual synthesis is an alternative approach to event-based synthesis that doesn't require you to implement an event handler. You can use manual synthesis to generate audio translations for one or more target languages.
+
+Manual synthesis of translations is essentially just the combination of two separate operations in which you:
+
+Use a TranslationRecognizer to translate spoken input into text transcriptions in one or more target languages.
+Iterate through the Translations dictionary in the result of the translation operation, using a SpeechSynthesizer to synthesize an audio stream for each language.
 
 
 
