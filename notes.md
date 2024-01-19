@@ -792,6 +792,23 @@ Headers:
 Accept,Authorization,Beare,Referer,Sec-Ch-Ua,Sec-Ch-Ua-Mobile,Sec-Ch-Ua-Platform,Skip-Throttling,User-Agent,User-Session-Id,X-Ms-Blob-Type,X-Ms-Version 
 ```
 
+## Custom Named Entity Recognition (CUSTOM NER)
+
+Creating an entity extraction model typically follows a similar path to most Azure AI Language service features:
+
+    * Define entities: Understanding the data and entities you want to identify, and try to make them as clear as possible. For example, defining exactly which parts of a bank statement you want to extract.
+
+    * Tag data: Label, or tag, your existing data, specifying what text in your dataset corresponds to which entity. This step is important to do accurately and completely, as any wrong or missed labels will reduce the effectiveness of the trained model. A good variation of possible input documents is useful. For example, label bank name, customer name, customer address, specific loan or account terms, loan or account amount, and account number.
+
+    * Train model: Train your model once your entities are labeled. Training teaches your model how to recognize the entities you label.
+
+    * View model: After your model is trained, view the results of the model. This page includes a score of 0 to 1 that is based on the precision and recall of the data tested. You can see which entities worked well (such as customer name) and which entities need improvement (such as account number).
+
+    * Improve model: Improve your model by seeing which entities failed to be identified, and which entities were incorrectly extracted. Find out what data needs to be added to your model's training to improve performance. This page shows you how entities failed, and which entities (such as account number) need to be differentiated from other similar entities (such as loan amount).
+
+    * Deploy model: Once your model performs as desired, deploy your model to make it available via the API. In our example, you can send to requests to the model when it's deployed to extract bank statement entities.
+
+    * Extract entities: Use your model for extracting entities. The lab covers how to use the API, and you can view the API reference for more details.
 
 
 
