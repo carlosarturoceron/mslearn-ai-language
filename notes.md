@@ -823,6 +823,42 @@ Understand language detection, translation, and transliteration
 Specify translation options
 Define and run custom translations
 
+## Az AI Speech
+
+Azure AI Speech provides APIs that you can use to build speech-enabled applications. This includes:
+
+    
+    * Speech to text: An API that enables speech recognition in which your application can accept spoken input.
+    
+    * Text to speech: An API that enables speech synthesis in which your application can provide spoken output.
+    
+    * Speech Translation: An API that you can use to translate spoken input into multiple languages.
+    
+    * Speaker Recognition: An API that enables your application to recognize individual speakers based on their voice.
+    
+    * Intent Recognition: An API that uses conversational language understanding to determine the semantic meaning of spoken input.
+
+Before you can use Azure AI Speech, you need to create an Azure AI Speech resource in your Azure subscription. You can use either a dedicated Azure AI Speech resource or a multi-service Azure AI Services resource.
+
+After you create your resource, you'll need the following information to use it from a client application through one of the supported SDKs:
+
+    
+    * The location in which the resource is deployed (for example, eastus)
+    
+    * One of the keys assigned to your resource.
+
+You can view of these values on the Keys and Endpoint page for your resource in the Azure portal.
+
+The Azure AI Speech service supports speech recognition through two REST APIs:
+
+    * The Speech to text API, which is the primary way to perform speech recognition.
+
+    * The Speech to text Short Audio API, which is optimized for short streams of audio (up to 60 seconds).
+
+You can use either API for interactive speech recognition, depending on the expected length of the spoken input. You can also use the Speech to text API for batch transcription, transcribing multiple audio files to text as a batch operation.
+
+You can learn more about the REST APIs in the Speech to text REST API documentation. In practice, most interactive speech-enabled applications use the Speech service through a (programming) language-specific SDK.
+
 
 
 
